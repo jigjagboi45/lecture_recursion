@@ -42,11 +42,37 @@ def binary_search(seq, number):
     return None
 
 
+def recursive_binary_search(ts : list, ntf : int, li : int, ri : int):
+    """
+    Recursive implementation of binary search
+    :param ts: "to search" [list] - ordered list to find given number in
+    :param ntf: "number to find" [int]
+    :param li: "left index" [int]
+    :param ri: "right index" [int]
+    :return:
+    """
+
+    # Cely seznam prohledan, hodnota nenalezena
+    if li > ri:
+        return None
+
+    mid = (li + ri) // 2
+
+    if ts[mid] == ntf:
+        return mid
+    elif ts[mid] > ntf:
+        return recursive_binary_search(ts, ntf, li, mid - 1)
+    else:
+        return recursive_binary_search(ts, ntf, mid + 1, ri)
+
 def main(file_name, number):
     sequence = read_data(file_name=file_name, key="ordered_numbers")
 
     # iterative binary search
     binary_search(sequence, number=number)
+
+    # recursive binary search
+    recursive_binary_search(sequence, number, 0, len(sequence) - 1)
 
 
 if __name__ == "__main__":
